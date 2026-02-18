@@ -1,0 +1,16 @@
+#!/bin/sh
+# (dzenbar) — minimal status line
+
+H=20
+W=700
+
+status() {
+  while :; do
+    DT="$(date '+%a %Y-%m-%d %H:%M')"
+    LOAD="$(cut -d' ' -f1-3 /proc/loadavg)"
+    printf "%s | load %s\n" "$DT" "$LOAD"
+    sleep 1
+  done
+}
+
+status | dzen2 -dock -ta l -x 0 -y 0 -h "$H" -w "$W" -fn "monospace-10"
